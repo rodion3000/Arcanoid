@@ -1,8 +1,5 @@
 using Cinemachine;
 using Project.Data.HeroLocalData;
-using Project.Dev.GamePlay.Items.Event;
-using Project.Dev.GamePlay.Items.Handler;
-using Project.Dev.GamePlay.Items.Interface;
 using Project.Dev.Infrastructure.AssetManager;
 using Project.Dev.Infrastructure.Factories;
 using Project.Dev.Infrastructure.Factories.Interfaces;
@@ -32,7 +29,6 @@ namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
             BindServices();
             BindHeroRegistry();
             BindFactories();
-            BindItemsHandler();
         }
 
         private void BindServices()
@@ -67,16 +63,11 @@ namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
                 .WithArguments(cinemachineMovePrefab)
                 .NonLazy();
         }
-
-        private void BindItemsHandler()
-        {
-            Container.Bind<IItemEventHandler<ItemCoffeEvent>>().To<ItemCoffeHandler>().AsTransient();
-        }
+        
 
         private void BindHeroRegistry()
         {
             Container.Bind<HeroRegistry>().AsSingle().NonLazy();
-            Container.BindInterfacesAndSelfTo<HeroInteractionRegister>().AsSingle();
             Container.BindInterfacesAndSelfTo<HeroMoveRegister>().AsSingle();
         }
     }
