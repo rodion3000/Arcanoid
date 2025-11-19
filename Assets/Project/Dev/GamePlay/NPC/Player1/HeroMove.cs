@@ -6,64 +6,32 @@ using Zenject;
 namespace Project.Dev.GamePlay.NPC.Player1
 {
     public class HeroMove : MonoBehaviour
-{
-    [SerializeField] private int movementSpeed;
-    [SerializeField] private CharacterController characterController;
-    [SerializeField] private float rotationSpeed ;
-
-    private IInputService _inputService;
-    private ICinemachineService _cinemachineService;
-
-    [Inject]
-    private void Construct(IInputService inputService, ICinemachineService cinemachineService)
     {
-        _inputService = inputService;
-        _cinemachineService = cinemachineService;
-    }
+        [SerializeField] private float movementSpeed ;
+        [SerializeField] private float leftLimit ;
+        [SerializeField] private float rightLimit;
 
-    private void Start()
-    {
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
-    }
+        private IInputService _inputService;
 
-    private void Update()
-    {
-        Move();
-    }
+        [Inject]
+        private void Construct(IInputService inputService) => _inputService = inputService;
 
-    private void LateUpdate()
-    {
-        Rotation();
-    }
-
-    private void Move()
-    {
-        Transform camTransform = Camera.main.transform;
-
-        Vector3 forwardVector = camTransform.forward;
-        forwardVector.y = 0;
-        forwardVector.Normalize();
-
-        Vector3 rightVector = camTransform.right;
-        rightVector.y = 0;
-        rightVector.Normalize();
-
-        Vector3 movementVector =
-            (forwardVector * _inputService.MoveAxis.y + rightVector * _inputService.MoveAxis.x).normalized;
-
-        movementVector += Physics.gravity;
-        characterController.Move(movementVector * (movementSpeed * Time.deltaTime));
-    }
-
-    private void Rotation()
-    {
-        Vector2 rotationAxis = _inputService.AimAxis;
-        if (rotationAxis.sqrMagnitude > 5f && _cinemachineService.Pov != null)
+        private void Update()
         {
-            _cinemachineService.Pov.m_HorizontalAxis.Value += rotationAxis.x * rotationSpeed * Time.deltaTime;
-            _cinemachineService.Pov.m_VerticalAxis.Value -= rotationAxis.y * rotationSpeed * Time.deltaTime;
+            Move();
+        }
+
+        private void Move()
+        {
+            float moveX = _inputService.MoveAxis.x;
+            if (Mathf.Abs(moveX) < 0.01f) return;
+
+            Vector3 newPosition = transform.position;
+            newPosition.x += moveX * movementSpeed * Time.deltaTime;
+
+            newPosition.x = Mathf.Clamp(newPosition.x, leftLimit, rightLimit);
+
+            transform.position = newPosition;
         }
     }
-}
 }
