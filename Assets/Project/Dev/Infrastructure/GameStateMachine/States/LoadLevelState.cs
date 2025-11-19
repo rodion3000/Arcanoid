@@ -79,7 +79,7 @@ namespace Project.Dev.Infrastructure.GameStateMachine.States
         {
             await SetupLocation();
             _stageProgressData.Hero = await SetupHero();
-            SetupCamera(_stageProgressData.Hero);
+            //SetupCamera(_stageProgressData.Hero);
         }
         private void SetupCamera(GameObject hero)
         {
