@@ -11,6 +11,8 @@ TagManager:
   - ship
   - asteroid
   - Platform
+  - Brick
+  - Wall
   layers:
   - Default
   - TransparentFX

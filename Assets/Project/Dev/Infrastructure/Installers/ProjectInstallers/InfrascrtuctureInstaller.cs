@@ -1,5 +1,8 @@
 using Cinemachine;
 using Project.Data.HeroLocalData;
+using Project.Dev.GamePlay.ObjectEvent;
+using Project.Dev.GamePlay.ObjectEvent.Event;
+using Project.Dev.GamePlay.ObjectEvent.Handler;
 using Project.Dev.Infrastructure.AssetManager;
 using Project.Dev.Infrastructure.Factories;
 using Project.Dev.Infrastructure.Factories.Interfaces;
@@ -29,6 +32,7 @@ namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
             BindServices();
             BindHeroRegistry();
             BindFactories();
+            BindEventObject();
         }
 
         private void BindServices()
@@ -69,6 +73,11 @@ namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
         {
             Container.Bind<HeroRegistry>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<HeroMoveRegister>().AsSingle();
+        }
+
+        private void BindEventObject()
+        {
+            Container.Bind<IObjectEventHandler<BrickEvent>>().To<BrickEventHandler>().AsTransient();
         }
     }
 }
