@@ -12,6 +12,7 @@ namespace Project.Dev.Meta.UI.HudController
         [SerializeField] private Button nextLvlButton;
         [SerializeField] private Button returnButton;
         [SerializeField] private GameObject mainMenu;
+        [SerializeField] private GameObject nextLvl;
         private GameStateMachine _stateMachine;
         private IStaticDataService _staticData;
         
@@ -31,6 +32,11 @@ namespace Project.Dev.Meta.UI.HudController
         public void MainMenuOn()
         {
             mainMenu.SetActive(true);
+        }
+
+        public void NextLvlOff()
+        {
+            nextLvl.SetActive(false);
         }
         private void NextLvlButtonClicked()
         {

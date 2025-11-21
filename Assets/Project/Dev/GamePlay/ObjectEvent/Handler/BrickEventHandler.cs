@@ -41,7 +41,7 @@ namespace Project.Dev.GamePlay.ObjectEvent.Handler
             if (hitCount == 1)
             {
                 ApplyDamageVisual(brick, 0.5f);
-                _uiRegistry.HudController.MainMenuOn();
+               // _uiRegistry.HudController.MainMenuOn();
             }
             else if (hitCount >= 2)
             {

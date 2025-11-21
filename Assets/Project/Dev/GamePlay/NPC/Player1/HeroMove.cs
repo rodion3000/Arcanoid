@@ -1,4 +1,3 @@
-using Project.Dev.Services.CinemachineService;
 using Project.Dev.Services.InputService;
 using UnityEngine;
 using Zenject;
@@ -32,6 +31,11 @@ namespace Project.Dev.GamePlay.NPC.Player1
             newPosition.x = Mathf.Clamp(newPosition.x, leftLimit, rightLimit);
 
             transform.position = newPosition;
+        }
+
+        public void Destroy()
+        {
+            Destroy(gameObject);
         }
     }
 }

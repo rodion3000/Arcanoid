@@ -13,6 +13,7 @@ TagManager:
   - Platform
   - Brick
   - Wall
+  - LoseTrigger
   layers:
   - Default
   - TransparentFX

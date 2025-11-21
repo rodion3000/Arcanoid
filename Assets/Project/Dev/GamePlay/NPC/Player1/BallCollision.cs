@@ -40,6 +40,11 @@ namespace Project.Dev.GamePlay.NPC.Player1
             {
                 BounceFromWall(col);
             }
+            else if(other.CompareTag("LoseTrigger"))
+            {
+                _events.Publish(new LosingEvent(col.gameObject));
+                Destroy(gameObject);
+            }
         }
 
         private void BounceFromPlatform(Collision2D col)
@@ -53,14 +58,12 @@ namespace Project.Dev.GamePlay.NPC.Player1
 
         private void BounceFromBrick(Collision2D col)
         {
-          //  Vector2 normal = col.contacts[0].normal;
-           // _rb.velocity = Vector2.Reflect(_rb.velocity, normal).normalized * speed;
+          //  какая-нибудь логика
         }
 
         private void BounceFromWall(Collision2D col)
         {
-          //  Vector2 normal = col.contacts[0].normal;
-           // _rb.velocity = Vector2.Reflect(_rb.velocity, normal).normalized * speed;
+          //  какая-нибудь логика
         }
     }
 }

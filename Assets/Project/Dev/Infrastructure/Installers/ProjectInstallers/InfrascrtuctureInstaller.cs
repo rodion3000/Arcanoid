@@ -17,7 +17,6 @@ using Project.Dev.Services.Logging;
 using Project.Dev.Services.RxEventService;
 using Project.Dev.Services.StaticDataService;
 using UnityEngine;
-using UnityEngine.Rendering;
 using Zenject;
 
 namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
@@ -87,6 +86,7 @@ namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
         private void BindEventObject()
         {
             Container.Bind<IObjectEventHandler<BrickEvent>>().To<BrickEventHandler>().AsSingle();
+            Container.Bind<IObjectEventHandler<LosingEvent>>().To<LosingEventHandler>().AsSingle();
         }
     }
 }
