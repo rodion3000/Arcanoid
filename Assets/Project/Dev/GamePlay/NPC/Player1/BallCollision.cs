@@ -44,7 +44,7 @@ namespace Project.Dev.GamePlay.NPC.Player1
 
         private void BounceFromPlatform(Collision2D col)
         {
-            float x = (transform.position.x - col.transform.position.x) 
+            float x = (transform.position.x - col.transform.position.x)
                       / col.collider.bounds.size.x;
 
             Vector2 dir = new Vector2(x, 1).normalized;
@@ -53,14 +53,14 @@ namespace Project.Dev.GamePlay.NPC.Player1
 
         private void BounceFromBrick(Collision2D col)
         {
-            Vector2 normal = col.contacts[0].normal;
-            _rb.velocity = Vector2.Reflect(_rb.velocity, normal).normalized * speed;
+          //  Vector2 normal = col.contacts[0].normal;
+           // _rb.velocity = Vector2.Reflect(_rb.velocity, normal).normalized * speed;
         }
 
         private void BounceFromWall(Collision2D col)
         {
-            Vector2 normal = col.contacts[0].normal;
-            _rb.velocity = Vector2.Reflect(_rb.velocity, normal).normalized * speed;
+          //  Vector2 normal = col.contacts[0].normal;
+           // _rb.velocity = Vector2.Reflect(_rb.velocity, normal).normalized * speed;
         }
     }
 }

@@ -27,13 +27,14 @@ namespace Project.Dev.GamePlay.ObjectEvent.Handler
             // 1 удар → визуальный урон
             if (hitCount == 1)
             {
-                ApplyDamageVisual(brick, 0.5f); // 50% затемнение
+                ApplyDamageVisual(brick, 0.5f);
             }
             // 2 удар → уничтожение
             else if (hitCount >= 2)
             {
                 Object.Destroy(brick);
                 _hits.Remove(brick);
+
             }
         }
 
