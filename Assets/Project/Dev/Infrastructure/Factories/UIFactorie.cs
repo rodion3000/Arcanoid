@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Project.Dev.Infrastructure.AssetManager;
 using Project.Dev.Infrastructure.Factories.Interfaces;
+using Project.Dev.Infrastructure.Registers.Interface;
 using Project.Dev.Meta.UI.HudController;
 using Project.Dev.Meta.UI.MenuController;
 using UnityEngine;
@@ -16,13 +18,15 @@ namespace Project.Dev.Infrastructure.Factories
 
         private readonly DiContainer _container;
         private readonly IAssetProvider _assetProvider;
+        private readonly List<IUiRegistery> _uiRegisteries;
 
         private Canvas _uiRoot;
 
-        public UIFactorie(DiContainer container, IAssetProvider assetProvider)
+        public UIFactorie(DiContainer container, IAssetProvider assetProvider, List<IUiRegistery> uiRegisteries)
         {
             _container = container;
             _assetProvider = assetProvider;
+            _uiRegisteries = uiRegisteries;
         }
 
         public async Task WarmUp()
@@ -54,9 +58,15 @@ namespace Project.Dev.Infrastructure.Factories
         public async Task<HudController> CreateHud()
         {
             var prefab = await _assetProvider.Load<GameObject>(key: HUDPrefabId);
-            var hud = Object.Instantiate(prefab, _uiRoot.transform).GetComponent<HudController>();
-            _container.Inject(hud);
-            return hud;
+            var hud = Object.Instantiate(prefab, _uiRoot.transform);
+            _container.InjectGameObject(hud);
+            foreach (var r in _uiRegisteries)
+            {
+                r.Registry(hud);
+            }
+
+            var hudd = hud.GetComponent<HudController>();
+            return hudd;
         }
     }
 }

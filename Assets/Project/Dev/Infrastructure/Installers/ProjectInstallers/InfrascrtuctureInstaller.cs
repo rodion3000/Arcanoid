@@ -7,6 +7,7 @@ using Project.Dev.Infrastructure.AssetManager;
 using Project.Dev.Infrastructure.Factories;
 using Project.Dev.Infrastructure.Factories.Interfaces;
 using Project.Dev.Infrastructure.Registers.Hero;
+using Project.Dev.Infrastructure.Registers.UI;
 using Project.Dev.Infrastructure.SceneManagment;
 using Project.Dev.Services.CinemachineService;
 using Project.Dev.Services.InputService;
@@ -16,6 +17,7 @@ using Project.Dev.Services.Logging;
 using Project.Dev.Services.RxEventService;
 using Project.Dev.Services.StaticDataService;
 using UnityEngine;
+using UnityEngine.Rendering;
 using Zenject;
 
 namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
@@ -30,6 +32,7 @@ namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
             Container.BindInterfacesAndSelfTo<AddressableProvider>().AsSingle();
             Container.Bind<SceneLoader>().AsSingle();
             BindServices();
+            BindUIRegistry();
             BindHeroRegistry();
             BindFactories();
             BindEventObject();
@@ -73,6 +76,12 @@ namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
         {
             Container.Bind<HeroRegistry>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<HeroMoveRegister>().AsSingle();
+        }
+
+        private void BindUIRegistry()
+        {
+            Container.Bind<UiRegistry>().AsSingle().NonLazy();
+            Container.BindInterfacesAndSelfTo<HudRegister>().AsSingle();
         }
 
         private void BindEventObject()

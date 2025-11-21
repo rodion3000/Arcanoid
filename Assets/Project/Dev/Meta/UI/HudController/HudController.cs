@@ -11,7 +11,7 @@ namespace Project.Dev.Meta.UI.HudController
     {
         [SerializeField] private Button nextLvlButton;
         [SerializeField] private Button returnButton;
-        [SerializeField] private GameObject nextlvlObject;
+        [SerializeField] private GameObject mainMenu;
         private GameStateMachine _stateMachine;
         private IStaticDataService _staticData;
         
@@ -28,9 +28,9 @@ namespace Project.Dev.Meta.UI.HudController
             ReturnsButtonClicked();
         }
 
-        public void NextLvlOff()
+        public void MainMenuOn()
         {
-            nextlvlObject.SetActive(false);
+            mainMenu.SetActive(true);
         }
         private void NextLvlButtonClicked()
         {

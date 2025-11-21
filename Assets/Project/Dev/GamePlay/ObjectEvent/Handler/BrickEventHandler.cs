@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using Project.Dev.GamePlay.ObjectEvent.Event;
-using Project.Dev.Meta.UI.HudController;
+using Project.Dev.Infrastructure.Registers.UI;
 using Project.Dev.Services.CinemachineService;
 using UnityEngine;
 using Zenject;
@@ -11,10 +11,14 @@ namespace Project.Dev.GamePlay.ObjectEvent.Handler
     {
         private readonly Dictionary<int, int> _hits = new();
         private ICinemachineService _cinemachineService;
-        private HudController hud;
+        private UiRegistry _uiRegistry;
 
         [Inject]
-        private void Construct(ICinemachineService cinemachineService) => _cinemachineService = cinemachineService;
+        private void Construct(ICinemachineService cinemachineService, UiRegistry uiRegistry)
+        {
+            _cinemachineService = cinemachineService;
+            _uiRegistry = uiRegistry;
+        }
 
         public void Handle(BrickEvent obj)
         {
@@ -37,6 +41,7 @@ namespace Project.Dev.GamePlay.ObjectEvent.Handler
             if (hitCount == 1)
             {
                 ApplyDamageVisual(brick, 0.5f);
+                _uiRegistry.HudController.MainMenuOn();
             }
             else if (hitCount >= 2)
             {

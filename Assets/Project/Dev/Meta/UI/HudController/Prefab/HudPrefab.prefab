@@ -561,7 +561,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nextLvlButton: {fileID: 6041998063048302842}
   returnButton: {fileID: 3044110754472767126}
-  nextlvlObject: {fileID: 9021736541601888877}
+  mainMenu: {fileID: 4750861137805737991}
 --- !u!1 &7913061046009062604
 GameObject:
   m_ObjectHideFlags: 0
