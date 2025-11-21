@@ -7,6 +7,8 @@ namespace Project.Dev.Services.CinemachineService
     {
         void HeroCamera(GameObject hero);
         CinemachinePOV Pov { get; }
+        CinemachineImpulseSource Impulse { get; }
+        void Shake();
 
     }
 }

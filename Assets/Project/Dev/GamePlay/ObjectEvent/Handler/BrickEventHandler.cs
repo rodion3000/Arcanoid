@@ -1,40 +1,50 @@
 using System.Collections.Generic;
 using Project.Dev.GamePlay.ObjectEvent.Event;
+using Project.Dev.Meta.UI.HudController;
+using Project.Dev.Services.CinemachineService;
 using UnityEngine;
+using Zenject;
 
 namespace Project.Dev.GamePlay.ObjectEvent.Handler
 {
     public class BrickEventHandler : IObjectEventHandler<BrickEvent>
     {
-        // Каждый кирпич → количество ударов
-        private readonly Dictionary<GameObject, int> _hits = new();
+        private readonly Dictionary<int, int> _hits = new();
+        private ICinemachineService _cinemachineService;
+        private HudController hud;
+
+        [Inject]
+        private void Construct(ICinemachineService cinemachineService) => _cinemachineService = cinemachineService;
 
         public void Handle(BrickEvent obj)
         {
             GameObject brick = obj.Object;
 
+            // Unity fake-null check
             if (brick == null)
                 return;
 
-            // Считаем удар
-            if (!_hits.ContainsKey(brick))
-                _hits[brick] = 0;
+            int id = brick.GetInstanceID();
 
-            _hits[brick]++;
+            // Счётчик ударов
+            if (!_hits.ContainsKey(id))
+                _hits[id] = 0;
 
-            int hitCount = _hits[brick];
+            _hits[id]++;
 
-            // 1 удар → визуальный урон
+            int hitCount = _hits[id];
+
             if (hitCount == 1)
             {
                 ApplyDamageVisual(brick, 0.5f);
             }
-            // 2 удар → уничтожение
             else if (hitCount >= 2)
             {
-                Object.Destroy(brick);
-                _hits.Remove(brick);
+                // Безопасно удаляем
+                if (brick != null)
+                    Object.Destroy(brick);
 
+                _hits.Remove(id);
             }
         }
 
@@ -50,7 +60,7 @@ namespace Project.Dev.GamePlay.ObjectEvent.Handler
                 c.r * d,
                 c.g * d,
                 c.b * d,
-                c.a * 0.7f // немного прозрачнее
+                c.a * 0.7f
             );
         }
     }

@@ -77,7 +77,7 @@ namespace Project.Dev.Infrastructure.Installers.ProjectInstallers
 
         private void BindEventObject()
         {
-            Container.Bind<IObjectEventHandler<BrickEvent>>().To<BrickEventHandler>().AsTransient();
+            Container.Bind<IObjectEventHandler<BrickEvent>>().To<BrickEventHandler>().AsSingle();
         }
     }
 }

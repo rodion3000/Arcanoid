@@ -7,6 +7,7 @@ namespace Project.Dev.Services.CinemachineService
     {
         private CinemachineVirtualCamera _heroCamera;
         public CinemachinePOV Pov { get; private set; }
+        public CinemachineImpulseSource Impulse { get; }
 
         public CinemachineService(CinemachineVirtualCamera heroCamera)
         {
@@ -33,6 +34,11 @@ namespace Project.Dev.Services.CinemachineService
                 Pov.m_VerticalAxis.m_MaxSpeed = 400f;
                 Pov.m_HorizontalAxis.m_MaxSpeed = 500f;
             }
+        }
+
+        public void Shake()
+        {
+            Impulse.GenerateImpulse(Vector3.one * 0.5f);
         }
 
     }
